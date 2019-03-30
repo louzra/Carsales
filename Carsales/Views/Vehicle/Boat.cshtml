@@ -1,0 +1,27 @@
+﻿@model Carsales.Models.VehicleProperty
+
+@ViewBag.Header;
+
+@{
+    string partialView = @ViewBag.PartialView;
+}
+
+@using (Html.BeginForm("Create", "Vehicle"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="jumbotron form-horizontal col-md-10">
+        <div class="form-group">
+            @Html.Partial("~/Views/Shared/Common/_Edit.cshtml", Model)
+            @Html.Partial(partialView, Model)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@ViewBag.ActionButton" class="btn btn-primary" />
+                @Html.ActionLink("Delete", "Detete", "Vehicle", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                @Html.ActionLink("Cancel", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+            </div>
+        </div>
+    </div>
+}

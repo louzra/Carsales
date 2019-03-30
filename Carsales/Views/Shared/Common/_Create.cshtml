@@ -1,0 +1,27 @@
+﻿@model Carsales.Models.VehicleProperty
+
+<div>
+    @Html.HiddenFor(model => model.CommonProperty.Id)
+    @Html.HiddenFor(model => model.CommonProperty.VehicleType)
+
+    @Html.LabelFor(model => model.CommonProperty.Make, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CommonProperty.Make, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CommonProperty.Make, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(model => model.CommonProperty.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CommonProperty.Model, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CommonProperty.Model, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(model => model.CommonProperty.Engine, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CommonProperty.Engine, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CommonProperty.Engine, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(model => model.CommonProperty.BodyType, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CommonProperty.BodyType, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CommonProperty.BodyType, "", new { @class = "text-danger" })
+    </div>
+</div>

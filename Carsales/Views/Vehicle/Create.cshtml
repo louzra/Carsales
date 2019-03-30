@@ -1,0 +1,39 @@
+﻿@model Carsales.Models.VehicleProperty
+
+@{
+    @ViewBag.Header;
+    string common = ViewBag.CommonPartialView;
+    string vehicle = ViewBag.VehiclePartialView;
+}
+
+@using (Html.BeginForm("Create", "Vehicle", new { @Id = "sampleform" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="jumbotron form-horizontal col-md-10">
+        <div class="form-group">
+            @Html.Partial(common, Model)
+            @Html.Partial(vehicle, Model)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="@ViewBag.ActionButton" type="submit" value="@ViewBag.ActionButton" class="btn btn-primary" />
+                @Html.ActionLink("Delete", "Delete", "Vehicle", new { id = Model.CommonProperty.Id }, htmlAttributes: new { @class = "btn btn-primary", @role = "button", onclick = "return confirm('Are sure wants to delete this vehicle?')" })
+                @Html.ActionLink("Cancel", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $("#Update").click(function (event) {
+
+        var confirmationMessage = "Are you sure you want to update this vehicle?";
+
+        if (!confirm(confirmationMessage)) {
+            event.preventDefault(); 
+        }
+    });
+</script>

@@ -1,0 +1,15 @@
+﻿@model Carsales.Models.VehicleProperty
+
+@{
+    ViewBag.Header = "Create Vehicle";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        @Html.DropDownListFor(m => m.VehicleType, new SelectList(Model.VehicleType, "type", "type"),
+            "Please select", new { onchange = "this.form.submit();", @class = "form-control" })
+        <br />
+        @Html.Partial("~/Views/Shared/Common/_Vehicle.cshtml", Model.ListCommonProperty)
+    </div>
+}

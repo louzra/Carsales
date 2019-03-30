@@ -1,0 +1,16 @@
+﻿@model Carsales.Models.VehicleProperty
+
+<div>
+    @Html.HiddenFor(model => model.CarProperty.Id)
+
+    @Html.LabelFor(model => model.CarProperty.Doors, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CarProperty.Doors, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CarProperty.Doors, "", new { @class = "text-danger" })
+    </div>
+    @Html.LabelFor(model => model.CarProperty.Wheels, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CarProperty.Wheels, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CarProperty.Wheels, "", new { @class = "text-danger" })
+    </div>
+</div>
