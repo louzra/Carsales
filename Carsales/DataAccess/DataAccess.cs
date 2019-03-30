@@ -10,6 +10,7 @@ namespace Carsales.Models
     {
         string connectionString = "Data Source = DESKTOP-5KVHUCQ\\SQLEXPRESS;  Initial Catalog = SQLExpress; integrated security=True";
 
+        // Get VehicleType to be displayde in dropown
         public List<VehicleType> GetVehicleType()
         {
             List<VehicleType> vehicleTypes = new List<VehicleType>();
@@ -33,6 +34,59 @@ namespace Carsales.Models
             }
 
             return vehicleTypes;
+        }
+        
+        // Soft delete the vehicle in the database
+        // Set IsDeleted column to 1
+        public void DeleteVehicle(int id)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string query = string.Format("UPDATE VehicleProperty SET IsDeleted = 1 WHERE Id = {0}", id);
+                    SqlCommand cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        // Get all vehicles's common properties and display in Grid
+        public IEnumerable<CommonProperty> GetAllVehicleDetails()
+        {
+            List<CommonProperty> commonProperties = new List<CommonProperty>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.VehicleProperty WHERE ISNULL(IsDeleted, 0) = 0", con);
+
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    CommonProperty commonProperty = new CommonProperty();
+
+                    commonProperty.Id = Convert.ToInt32(rdr["Id"]);
+                    commonProperty.VehicleType = rdr["VehicleType"].ToString();
+                    commonProperty.Make = rdr["Make"].ToString();
+                    commonProperty.Model = rdr["Model"].ToString();
+                    commonProperty.Engine = rdr["Engine"].ToString();
+                    commonProperty.BodyType = rdr["BodyType"].ToString();
+
+                    commonProperties.Add(commonProperty);
+                }
+            }
+
+            return commonProperties;
         }
 
         #region Common Properties
@@ -63,6 +117,8 @@ namespace Carsales.Models
             }
         }
 
+        // Get specifict vehicle's common property
+        // To be displayed in Create/Details views
         public CommonProperty GetVehicleDetails(int Id)
         {
             CommonProperty commonProperty = new CommonProperty();
@@ -88,59 +144,11 @@ namespace Carsales.Models
 
             return commonProperty;
         }
-
-        public void DeleteVehicle(int id)
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    string query = string.Format("UPDATE VehicleProperty SET IsDeleted = 1 WHERE Id = {0}", id);
-                    SqlCommand cmd = new SqlCommand(query, con);
-
-                    cmd.Parameters.AddWithValue("@Id", id);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        public IEnumerable<CommonProperty> GetAllVehicleDetails()
-        {
-            List<CommonProperty> commonProperties = new List<CommonProperty>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.VehicleProperty WHERE ISNULL(IsDeleted, 0) = 0", con);
-
-                con.Open();
-                SqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    CommonProperty commonProperty = new CommonProperty();
-
-                    commonProperty.Id = Convert.ToInt32(rdr["Id"]);
-                    commonProperty.VehicleType = rdr["VehicleType"].ToString();
-                    commonProperty.Make = rdr["Make"].ToString();
-                    commonProperty.Model = rdr["Model"].ToString();
-                    commonProperty.Engine = rdr["Engine"].ToString();
-                    commonProperty.BodyType = rdr["BodyType"].ToString();
-
-                    commonProperties.Add(commonProperty);
-                }
-            }
-
-            return commonProperties;
-        }
         #endregion
 
         #region Car Properties
+        // Execute stored procedure
+        // To insert or update Car details in the database
         public void InsertUpdateCar(CarProperty CarProperty)
         {
             try
@@ -165,6 +173,7 @@ namespace Carsales.Models
             }
         }
 
+        // Get Car details from the detabase
         public CarProperty GetCarDetails(int Id)
         {
             CarProperty carProperty = new CarProperty();
@@ -191,6 +200,8 @@ namespace Carsales.Models
         #endregion
 
         #region Boat Properties
+        // Execute stored procedure
+        // To insert or update Boat details in the database
         public void InsertUpdateBoat(BoatProperty BoatProperty)
         {
             try
@@ -216,6 +227,7 @@ namespace Carsales.Models
             }
         }
 
+        // Get Boat details from the database
         public BoatProperty GetBoatDetails(int Id)
         {
             BoatProperty boatProperty = new BoatProperty();

@@ -148,8 +148,7 @@
     <Compile Include="Models\BoatProperty.cs" />
     <Compile Include="Models\CarProperty.cs" />
     <Compile Include="Models\CommonProperty.cs" />
-    <Compile Include="Models\DataAccess.cs" />
-    <Compile Include="Models\ListViewModel.cs" />
+    <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="Models\VehicleProperty.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
