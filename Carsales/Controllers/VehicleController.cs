@@ -9,8 +9,6 @@ namespace Carsales.Controllers
 {
     public class VehicleController : Controller
     {
-        //private CarsalesEntities _CarsalesDB = new CarsalesEntities();
-
         // GET: Redirect to Home
         public ActionResult Index()
         {

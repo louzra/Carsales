@@ -17,7 +17,6 @@ namespace Carsales.Controllers
             int pageNo = (page ?? 1);
             int pageSize = 10;
 
-            //var viewModel = new VehicleProperty { VehicleType = dataAccess.GetVehicleType(), ListCommonProperty = dataAccess.GetAllVehicleDetails().ToList() };
             VehicleProperty vehicleProperty = new VehicleProperty();
             vehicleProperty.VehicleType = dataAccess.GetVehicleType();
             vehicleProperty.ListCommonProperty = new PagedList<CommonProperty>(dataAccess.GetAllVehicleDetails().ToList(), pageNo, pageSize);

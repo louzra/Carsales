@@ -29,15 +29,8 @@
                     @Html.DisplayFor(modelItem => item.Model)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Engine)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BodyType)
-                </td>
-                <td>
                     @Html.ActionLink("Edit", "Edit", "Vehicle", new { id = item.Id }, null) |
                     @Html.ActionLink("Details", "Details", "Vehicle", new { id = item.Id }, null)
-                    @*@Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id, vehicleType = item.VehicleType }, null)*@
                 </td>
             </tr>
         }
